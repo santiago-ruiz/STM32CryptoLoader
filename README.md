@@ -12,11 +12,12 @@ Although a very simple procedure, it can bring some problems to the manufacturer
 - Clients could try to upgrade a product with an incorrect binary image (different configuration, different product, etc.).
 
 # A Solution
-Adding a bootloader that runs before the execution of the main application, detects a specific condition to check for upgrades, read a binary file and flash the new application can do the trick.
+Adding a bootloader that runs before the execution of the main application, detects a specific condition to check for upgrades, read a binary file and flash the new application can do the trick. 
+Before sending the plain binary file, the image will be encrypted with some standard crypto algorithm. The device in the field will be able to decrypt it and upgrade from it. Before flashing itself, it can check if the image is correct for him and look for other parameters (total size, product ID, etc.)
 
-![https://www.edgefx.in/know-about-boot-loader-technique-for-programming-microcontroller](https://www.edgefx.in/wp-content/uploads/2014/06/A-Boot-loader-for-Microcontroller-Programming.jpg)
+![](https://www.edgefx.in/wp-content/uploads/2014/06/A-Boot-loader-for-Microcontroller-Programming.jpg)
 
-Add some crypto magic and you have a secure way to upgrade your firmware on the field. 
+
 In this project, we will analyze different cryptographic algorithms and libraries to measure:
 - Use of RAM.
 - Use of Flash.
@@ -27,4 +28,4 @@ In this project, we will analyze different cryptographic algorithms and librarie
 As this project is aiming for small microcontrollers, we choose a cheap and common development board, the famous STM32 BluePill. It rocks an STM32 Cortex M3 microcontroller, the STM32F103C8T6, with 64Kb of Flash and 20Kb of SRAM.
 
 
-[![](https://www.electronicshub.org/wp-content/uploads/2020/02/STM32F103C8T6-Board-Features.jpg)](http://https://www.electronicshub.org/getting-started-with-stm32f103c8t6-blue-pill/)
+[![](https://www.electronicshub.org/wp-content/uploads/2020/02/STM32F103C8T6-Board-Features.jpg)](http://www.electronicshub.org/getting-started-with-stm32f103c8t6-blue-pill/)
