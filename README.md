@@ -1,7 +1,7 @@
 # The Problem
 If you ever develop a firmware application that was deployed on a commercial product you know how difficult it's sometimes to have the possibility to **upgrade it**. Sometimes going near the device and flash it, it's impossible due to distances or time. Sometimes Over-The-Air updates are way too complicated for the specific application and don't make sense at all. Sometimes you only need to upgrade a firmware version to a specific client with few devices.
 
-In those cases, giving the device the possibility to read a binary file and upgrade from it, it's the right choice. You can send the** binary file** via the internet to the client (*email, cloud*, etc.) and then they can copy it to a media device (*USB Flash, SD Card*, etc.), plug it into the product, and perform the upgrade by themself.  All without extra specific hardware.
+In those cases, giving the device the possibility to read a binary file and upgrade from it, it's the right choice. You can send the **binary file** via the internet to the client (*email, cloud*, etc.) and then they can copy it to a media device (*USB Flash, SD Card*, etc.), plug it into the product, and perform the upgrade by themself.  All without extra specific hardware.
 
 ![](./img/firmware_update.png)
 
