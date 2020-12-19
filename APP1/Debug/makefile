@@ -54,8 +54,8 @@ all: main-build
 main-build: blinky1.elf secondary-outputs
 
 # Tool invocations
-blinky1.elf: $(OBJS) $(USER_OBJS) C:\Users\Admin\Documents\FIRMWARE\STM32cryptoloader\APP1\STM32F103C8TX_FLASH.ld
-	arm-none-eabi-gcc -o "blinky1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Admin\Documents\FIRMWARE\STM32cryptoloader\APP1\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="blinky1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+blinky1.elf: $(OBJS) $(USER_OBJS) C:\Users\Admin\Documents\FIRMWARE\STM32CryptoLoader\APP1\STM32F103C8TX_FLASH.ld
+	arm-none-eabi-gcc -o "blinky1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Admin\Documents\FIRMWARE\STM32CryptoLoader\APP1\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="blinky1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

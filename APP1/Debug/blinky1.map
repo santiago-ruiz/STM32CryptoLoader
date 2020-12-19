@@ -2306,24 +2306,24 @@ OUTPUT(blinky1.elf elf32-littlearm)
  .debug_line    0x0000000000002b57      0x805 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
  .debug_line    0x000000000000335c      0x8c9 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
 
-.debug_str      0x0000000000000000    0x7b531
+.debug_str      0x0000000000000000    0x7b570
  .debug_str     0x0000000000000000    0x7a5b7 Core/Src/main.o
                                       0x7a8f3 (size before relaxing)
- .debug_str     0x000000000007a5b7       0x5a Core/Src/stm32f1xx_hal_msp.o
+ .debug_str     0x000000000007a5b7       0x99 Core/Src/stm32f1xx_hal_msp.o
                                       0x7a74b (size before relaxing)
- .debug_str     0x000000000007a611       0xbd Core/Src/stm32f1xx_it.o
+ .debug_str     0x000000000007a650       0xbd Core/Src/stm32f1xx_it.o
                                       0x7a768 (size before relaxing)
- .debug_str     0x000000000007a6ce       0x52 Core/Src/system_stm32f1xx.o
+ .debug_str     0x000000000007a70d       0x52 Core/Src/system_stm32f1xx.o
                                       0x7a70e (size before relaxing)
- .debug_str     0x000000000007a720       0x36 Core/Startup/startup_stm32f103c8tx.o
+ .debug_str     0x000000000007a75f       0x36 Core/Startup/startup_stm32f103c8tx.o
                                          0x75 (size before relaxing)
- .debug_str     0x000000000007a756      0x568 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
+ .debug_str     0x000000000007a795      0x568 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
                                       0x7ad9f (size before relaxing)
- .debug_str     0x000000000007acbe      0x300 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o
+ .debug_str     0x000000000007acfd      0x300 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o
                                       0x7ada7 (size before relaxing)
- .debug_str     0x000000000007afbe      0x324 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
+ .debug_str     0x000000000007affd      0x324 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
                                       0x7aad2 (size before relaxing)
- .debug_str     0x000000000007b2e2      0x24f Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
+ .debug_str     0x000000000007b321      0x24f Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
                                       0x7ab0b (size before relaxing)
 
 .comment        0x0000000000000000       0x7b
