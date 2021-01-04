@@ -92,6 +92,21 @@ int main(void)
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
+//    HAL_Delay(1000);
+	FATFS FatFs; 	//Fatfs handle
+	FIL fil; 		//File handle
+	FRESULT fres; //Result after operations
+
+	fres = f_mount(&FatFs, "", 1); //1=mount now
+	if (fres != FR_OK) {
+		while(1);
+	}
+	fres = f_open(&fil, "test.txt", FA_READ);
+	if (fres != FR_OK) {
+		while(1);
+	}
+	f_close(&fil);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -101,6 +116,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+	  HAL_Delay(500);
   }
   /* USER CODE END 3 */
 }
@@ -194,7 +211,6 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
