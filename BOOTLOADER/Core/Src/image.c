@@ -87,6 +87,7 @@ bool image_flash_file(void){
 	if(read < size_of_file){
 		return false;
 	}
-//	HAL_FLASH_Lock();
+	HAL_FLASH_Lock();
+	f_close(&file);
 	return true;
 }
