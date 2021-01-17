@@ -9,5 +9,6 @@
 #define APPLICATIONADDRESS      ((uint32_t)FLASH_STARTADDRESS+BOOTLOADER_SIZE) /* User start code space */
 #define FLASH_STARTADDRESS      ((uint32_t)0x08000000) /* Flash Start Address */
 #define FLASH_ENDADDRESS		((uint32_t)FLASH_STARTADDRESS +FLASH_SIZE)
+#define BUFFER_SIZE   			((uint16_t)1*8192)
 
 #endif

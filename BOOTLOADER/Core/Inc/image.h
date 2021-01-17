@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include "build_config.h"
 
-bool image_open_binary(FIL* fil);
+bool image_open_binary(void);
+bool image_erase_flash(void);
+bool image_flash_file(void);
 
 #endif

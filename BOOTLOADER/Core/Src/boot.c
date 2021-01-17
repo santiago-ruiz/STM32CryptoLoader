@@ -12,9 +12,7 @@ typedef enum{
 static bool boot_check_condition(void);
 static void jump_to_app(void);
 
-
 static boot_state state = INIT;
-FIL bin_file;
 
 void boot_fsm(void){
 	switch(state){
@@ -28,7 +26,7 @@ void boot_fsm(void){
 
 		case READING:
 			//Check if we can find the binary image
-			if(image_open_binary(&bin_file))
+			if(image_open_binary())
 				state = ERASING;
 			else
 				state = FAIL;
@@ -36,26 +34,22 @@ void boot_fsm(void){
 
 		case ERASING:
 			//Erase application FLASH memory
-			HAL_FLASH_Unlock();
-			uint32_t size_of_file = f_size(&bin_file);
-			uint32_t erase_address = 0x00;
-			for (erase_address = APPLICATIONADDRESS; (erase_address < (APPLICATIONADDRESS + size_of_file)) && (erase_address < FLASH_ENDADDRESS); \
-				 erase_address = erase_address + PAGE_SIZE){
-				if (FLASH_LAYER_ErasePage (erase_address) != HAL_OK){
-					state = FAIL;
-					break;
-				}
-				HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-			}
-
-			state = FLASHING;
+			if(image_erase_flash())
+				state = FLASHING;
+			else
+				state = FAIL;
 			break;
 
 		case FLASHING:
+			if(image_flash_file())
+				state = JUMPING;
+			else
+				state = FAIL;
 			break;
 
 		case JUMPING:
-			f_close(&bin_file);
+//			f_close(&bin_file);
+			//Jump to the application
 			jump_to_app();
 			break;
 
@@ -80,10 +74,10 @@ static void jump_to_app(void){
 
 	if (((*(__IO uint32_t*)APPLICATIONADDRESS) & 0x2FFE0000 ) == 0x20000000)
 	{
-	  /* Jump to user application */
+	  // Jump to user application
 	  JumpAddress = *(__IO uint32_t*) (APPLICATIONADDRESS + 4);
 	  Jump_To_Application = (pFunction) JumpAddress;
-	  /* Initialize user application's Stack Pointer */
+	  //Initialize user application's Stack Pointer
 	  __set_MSP(*(__IO uint32_t*) APPLICATIONADDRESS);
 	  Jump_To_Application();
 	}

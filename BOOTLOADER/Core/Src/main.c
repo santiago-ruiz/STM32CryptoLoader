@@ -91,22 +91,6 @@ int main(void)
   MX_SPI1_Init();
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
-
-//    HAL_Delay(1000);
-	FATFS FatFs; 	//Fatfs handle
-	FIL fil; 		//File handle
-	FRESULT fres; //Result after operations
-
-	fres = f_mount(&FatFs, "", 1); //1=mount now
-	if (fres != FR_OK) {
-		while(1);
-	}
-	fres = f_open(&fil, "test.txt", FA_READ);
-	if (fres != FR_OK) {
-		while(1);
-	}
-	f_close(&fil);
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -114,10 +98,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  boot_fsm();
     /* USER CODE BEGIN 3 */
-	  HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-	  HAL_Delay(500);
+	boot_fsm();
+
   }
   /* USER CODE END 3 */
 }
