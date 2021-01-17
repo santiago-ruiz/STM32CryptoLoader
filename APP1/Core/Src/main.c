@@ -64,6 +64,7 @@ static void MX_GPIO_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  NVIC_SetVectorTable(NVIC_VectTab_FLASH, AP_START_SECTOR);
 
   /* USER CODE END 1 */
 
@@ -73,7 +74,6 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -96,7 +96,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_Delay(100);
+	  HAL_Delay(1000);
 
 	  HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
 	  
@@ -170,7 +170,10 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void NVIC_SetVectorTable(unsigned long NVIC_VectTab, unsigned long Offset)
+{
+	SCB->VTOR = NVIC_VectTab | (Offset & (unsigned int)0x1FFFFF80);
+}
 /* USER CODE END 4 */
 
 /**

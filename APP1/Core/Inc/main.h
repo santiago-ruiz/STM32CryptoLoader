@@ -54,7 +54,10 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+//NVIC TABLE LOCATION
+#define NVIC_VectTab_FLASH      (0x00000000)
+#define AP_START_SECTOR         (0x08008000)
+void NVIC_SetVectorTable(unsigned long NVIC_VectTab, unsigned long Offset);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

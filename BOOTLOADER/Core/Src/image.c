@@ -30,7 +30,7 @@ bool image_open_binary(void){
 }
 
 bool image_erase_flash(void){
-//	HAL_FLASH_Unlock();
+	HAL_FLASH_Unlock();
 	uint32_t size_of_file = f_size(&file);
 	uint32_t erase_address = 0x00;
 	for (erase_address = APPLICATIONADDRESS; (erase_address < (APPLICATIONADDRESS + size_of_file)) && (erase_address < FLASH_ENDADDRESS); \
@@ -44,7 +44,7 @@ bool image_erase_flash(void){
 }
 
 bool image_flash_file(void){
-	uint32_t read;
+	uint32_t read = 0;
 	uint32_t size_of_file = f_size(&file);
 	uint8_t error_code;
 	//RAM Address Initialization
@@ -74,7 +74,7 @@ bool image_flash_file(void){
 			if (FLASH_LAYER_ProgramWord((Last_PGAddress - tmp_program_counter + tmp_read_size), \
 									  *(__IO uint32_t *)(ram_address - program_counter + tmp_read_size)) != HAL_OK)
 			{
-			  return false;
+				return false;
 			}
 			HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
 		}
