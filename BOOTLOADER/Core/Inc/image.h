@@ -9,6 +9,5 @@
 bool image_open_binary(void);
 bool image_erase_flash(void);
 bool image_flash_file(void);
-bool image_decrypt_binary(void);
 
 #endif

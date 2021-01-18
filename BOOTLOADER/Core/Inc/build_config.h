@@ -11,5 +11,9 @@
 #define FLASH_STARTADDRESS      ((uint32_t)0x08000000) /* Flash Start Address */
 #define FLASH_ENDADDRESS		((uint32_t)FLASH_STARTADDRESS +FLASH_SIZE)
 #define BUFFER_SIZE   			((uint16_t)1*8192) /* Binary reading buffer*/
+//#define BUFFER_SIZE   			((uint16_t)4704) /* Binary reading buffer*/
+
+//openssl enc -aes-128-cbc -in blinky1.bin -nosalt -K 000102030405060708090a0b0c0d0e0f -iv 000102030405060708090a0b0c0d0e0f -out firmware.bin -p
+
 
 #endif

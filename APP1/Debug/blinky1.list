@@ -116,16 +116,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_Delay(1000);
- 8008164:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
- 8008168:	f000 f9aa 	bl	80084c0 <HAL_Delay>
+	  HAL_Delay(100);
+ 8008164:	2064      	movs	r0, #100	; 0x64
+ 8008166:	f000 f9ab 	bl	80084c0 <HAL_Delay>
 
 	  HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
- 800816c:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 8008170:	4802      	ldr	r0, [pc, #8]	; (800817c <main+0x30>)
- 8008172:	f000 fc1d 	bl	80089b0 <HAL_GPIO_TogglePin>
-	  HAL_Delay(1000);
- 8008176:	e7f5      	b.n	8008164 <main+0x18>
+ 800816a:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+ 800816e:	4803      	ldr	r0, [pc, #12]	; (800817c <main+0x30>)
+ 8008170:	f000 fc1e 	bl	80089b0 <HAL_GPIO_TogglePin>
+	  HAL_Delay(100);
+ 8008174:	e7f6      	b.n	8008164 <main+0x18>
+ 8008176:	bf00      	nop
  8008178:	08008000 	.word	0x08008000
  800817c:	40011000 	.word	0x40011000
 
