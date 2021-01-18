@@ -4,6 +4,7 @@ typedef enum{
 	INIT,
 	READING,
 	ERASING,
+	DECRYPTING,
 	FLASHING,
 	JUMPING,
 	FAIL
@@ -34,10 +35,21 @@ void boot_fsm(void){
 
 		case ERASING:
 			//Erase application FLASH memory
-			if(image_erase_flash())
+			if(image_erase_flash()){
+#if (CRYPTO == 1)
+				state = DECRYPTING;
+#else
 				state = FLASHING;
+#endif
+			}
 			else
 				state = FAIL;
+			break;
+
+		case DECRYPTING:
+			image_decrypt_binary();
+
+			state = FLASHING;
 			break;
 
 		case FLASHING:
@@ -48,12 +60,13 @@ void boot_fsm(void){
 			break;
 
 		case JUMPING:
-//			f_close(&bin_file);
 			//Jump to the application
 			jump_to_app();
 			break;
 
 		case FAIL:
+			//Do something to show error and jump to application
+			jump_to_app();
 			break;
 
 		default:

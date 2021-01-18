@@ -1,6 +1,7 @@
 #ifndef BUILD_CONFIG__H
 #define BUILD_CONFIG__H
 
+#define CRYPTO					1
 
 #define BINARY_FILE_NAME 		"firmware.bin"
 #define PAGE_SIZE               ((uint16_t)0x400)    /* 1 Kbytes */
