@@ -54,7 +54,8 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+//Useless data to increase bin size
+char dummy[15*1024] __attribute__((used)) = { 77 };
 /* USER CODE END 0 */
 
 /**
@@ -86,11 +87,15 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  //Dummy data for enlarging binary file size
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  //Dummy to avoid optimizer
+  if(dummy[0])
+	  HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,RESET);
+
   while (1)
   {
     /* USER CODE END WHILE */

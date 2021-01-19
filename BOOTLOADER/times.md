@@ -1,17 +1,29 @@
 # Boot times and sizes
 Compilation -O0 for all configurations
 ## No crypto
-For 5kB BIN File:
-T = 164ms
 FLASH = 20.3kB
 RAM = 11.9kB
 
+5kB BIN --->T = 164ms
+20kb BIN--->T = 540ms
+
 ## Tiny-AES
+
+FLASH = 23.7kB
+RAM = 12kB
 
 For 5kB BIN File:
 
 | |CBC  | CTR | ECB|
 | --|--|--|--|
-| AES128| 1431ms/23.7kB/12kB | 334ms/22.2kB/12kB |
-| AES192| 1708ms/23.8kB/12kB | 369ms/22.3kB/12kB |
-| AES256| 1988ms/23.8kB/12kB | 401ms/22.3kB/12kB |
+| AES128| 1431ms| 334ms|
+| AES192| 1708ms | 369ms |
+| AES256| 1988ms| 401ms |
+
+For 20kB BIN File:
+
+| |CBC  | CTR | ECB|
+| --|--|--|--|
+| AES128| 7135ms| 1431ms|
+| AES192| 8581ms| 1608ms|
+| AES256| 10031ms| 1781ms|

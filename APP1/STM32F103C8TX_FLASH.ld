@@ -37,7 +37,8 @@ _Min_Stack_Size = 0x400 ;	/* required amount of stack */
 MEMORY
 {
   RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 20K
-  FLASH    (rx)    : ORIGIN = 0x8008000,   LENGTH = 32K
+  FLASH    (rx)   : ORIGIN = 0x8008000,   LENGTH = 31K
+  CONST_DATA (rx) : ORIGIN = 0x080F800 LENGTH = 1K
 }
 
 /* Sections */
@@ -137,6 +138,14 @@ SECTIONS
     _edata = .;        /* define a global symbol at data end */
 
   } >RAM AT> FLASH
+
+/* Constant data section at CONST_DATA */
+	.const_data :
+	{
+	. = ALIGN(4);
+	KEEP*(.const_data.DM)
+	*(.const_data*);
+	} > CONST_DATA
 
   /* Uninitialized data section into "RAM" Ram type memory */
   . = ALIGN(4);

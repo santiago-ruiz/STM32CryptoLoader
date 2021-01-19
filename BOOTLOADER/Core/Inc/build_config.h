@@ -14,12 +14,12 @@
 
 #if (CRYPTO == 1)
 
-#define AES128					0
+#define AES128					1
 #define AES192					0
-#define AES256					1
-#define CBC						0
+#define AES256					0
+#define CBC						1
 #define ECB						0
-#define CTR						1
+#define CTR						0
 
 #define TINY_AES				1
 
