@@ -2,6 +2,7 @@
 #define _AES_H_
 
 #include <stdint.h>
+#include "build_config.h"
 
 // #define the macros below to 1/0 to enable/disable the mode of operation.
 //
@@ -22,10 +23,6 @@
   #define CTR 1
 #endif
 
-
-#define AES128 1
-//#define AES192 1
-//#define AES256 1
 
 #define AES_BLOCKLEN 16 // Block length in bytes - AES is 128b block only
 
