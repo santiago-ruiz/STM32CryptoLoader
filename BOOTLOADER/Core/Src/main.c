@@ -57,7 +57,8 @@ static void MX_SPI1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+//Timer for boot time measuring
+volatile uint32_t ms_counter = 0;
 /* USER CODE END 0 */
 
 /**

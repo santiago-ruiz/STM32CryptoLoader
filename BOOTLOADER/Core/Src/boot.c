@@ -13,6 +13,7 @@ static bool boot_check_condition(void);
 static void jump_to_app(void);
 
 static boot_state state = INIT;
+extern volatile uint32_t ms_counter;
 
 void boot_fsm(void){
 	switch(state){
@@ -49,6 +50,8 @@ void boot_fsm(void){
 			break;
 
 		case JUMPING:
+			//Timer (checked in debug)
+			ms_counter;
 			//Jump to the application
 			jump_to_app();
 			break;
