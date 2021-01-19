@@ -15,20 +15,27 @@
 #if (CRYPTO == 1)
 
 #define AES128					0
-#define AES192					1
-#define AES256					0
-#define CBC						1
+#define AES192					0
+#define AES256					1
+#define CBC						0
 #define ECB						0
-#define CTR						0
+#define CTR						1
 
 #define TINY_AES				1
 //OpenSSL commands
-//AES128-CBC
+//AES128
 //openssl enc -aes-128-cbc -in blinky1.bin -nosalt -K 000102030405060708090a0b0c0d0e0f -iv 000102030405060708090a0b0c0d0e0f -out firmware.bin -p
+//openssl enc -aes-128-ctr -in blinky1.bin -nosalt -K 000102030405060708090a0b0c0d0e0f -iv 000102030405060708090a0b0c0d0e0f -out firmware.bin -p
+//openssl enc -aes-128-ecb -in blinky1.bin -nosalt -K 000102030405060708090a0b0c0d0e0f -out firmware.bin -p
+
 //AES192-CBC
 //openssl enc -aes-192-cbc -in blinky1.bin -nosalt -K 000102030405060708090a0b0c0d0e0f0001020304050607 -iv 000102030405060708090a0b0c0d0e0f -out firmware.bin -p
+//openssl enc -aes-192-ctr -in blinky1.bin -nosalt -K 000102030405060708090a0b0c0d0e0f0001020304050607 -iv 000102030405060708090a0b0c0d0e0f -out firmware.bin -p
+
 //AES256-CBC
 //openssl enc -aes-256-cbc -in blinky1.bin -nosalt -K 000102030405060708090a0b0c0d0e0f000102030405060708090a0b0c0d0e0f -iv 000102030405060708090a0b0c0d0e0f -out firmware.bin -p
+//openssl enc -aes-256-ctr -in blinky1.bin -nosalt -K 000102030405060708090a0b0c0d0e0f000102030405060708090a0b0c0d0e0f -iv 000102030405060708090a0b0c0d0e0f -out firmware.bin -p
+
 
 #endif
 

@@ -95,6 +95,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,SET);
   while (1)
   {
     /* USER CODE END WHILE */

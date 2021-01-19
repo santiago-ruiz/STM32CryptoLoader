@@ -48,7 +48,6 @@ bool image_erase_flash(void){
 		if (FLASH_LAYER_ErasePage (erase_address) != HAL_OK){
 			return false;
 		}
-		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
 	}
 	return true;
 }
@@ -67,7 +66,11 @@ bool image_flash_file(void){
 
 #if (CRYPTO == 1)
 	struct AES_ctx ctx;
+#if (CBC == 1) || (CTR == 1)
 	AES_init_ctx_iv(&ctx, key, iv);
+#else
+	AES_init_ctx(&ctx, key);
+#endif
 #endif
 
 	while(read < size_of_file){
@@ -87,10 +90,13 @@ bool image_flash_file(void){
 #if (TINY_AES == 1)
 #if (CBC == 1)
 		AES_CBC_decrypt_buffer(&ctx, RAM_Buf, buffer_size);
+#elif (CTR == 1)
+		AES_CTR_xcrypt_buffer(&ctx, RAM_Buf, buffer_size);
+#elif (ECB == 1)
+		AES_ECB_decrypt(&ctx, RAM_Buf);
 #endif
 #endif
 #endif
-
 
 		//Temp variable
 		tmp_read_size = read_size;
@@ -105,13 +111,10 @@ bool image_flash_file(void){
 			{
 				return false;
 			}
-			HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
 		}
 		//Update last programmed address value
 		Last_PGAddress += tmp_read_size;
 	}
-
-	HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,RESET);
 
 	if(read < size_of_file){
 		return false;
