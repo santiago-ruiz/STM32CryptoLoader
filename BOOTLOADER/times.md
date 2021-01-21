@@ -27,3 +27,5 @@ For 20kB BIN File:
 | AES128| 7135ms| 1431ms|
 | AES192| 8581ms| 1608ms|
 | AES256| 10031ms| 1781ms|
+
+Note: changing `sbox[256]` and `rsbox[256]`from `static const` to `static` (from ROM to RAM) produce less than 1% improvement.
