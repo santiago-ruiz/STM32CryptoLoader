@@ -1,5 +1,5 @@
-#ifndef _AES_H_
-#define _AES_H_
+#ifndef TINY_AES_H_
+#define TINY_AES_H_
 
 #include <stdint.h>
 #include "build_config.h"

@@ -10,6 +10,7 @@
 #define FLASH_ENDADDRESS		((uint32_t)FLASH_STARTADDRESS +FLASH_SIZE)
 #define BUFFER_SIZE   			((uint16_t)1*8192) /* Binary reading buffer*/
 
+#define CHECKSUM				0
 #define CRYPTO					1
 
 #if (CRYPTO == 1)
@@ -22,6 +23,7 @@
 #define CTR						0
 
 #define TINY_AES				1
+#define MBED_TLS				0
 
 //OpenSSL commands
 //AES128

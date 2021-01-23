@@ -1,4 +1,5 @@
 #include "image.h"
+extern CRC_HandleTypeDef hcrc;
 
 //Only for testing
 #if (AES128 == 1)
@@ -54,7 +55,7 @@ bool image_erase_flash(void){
 
 bool image_flash_file(void){
 	uint32_t read = 0;
-	uint32_t size_of_file = f_size(&file);
+	uint32_t size_of_file = f_size(&file)-16;
 	uint8_t error_code;
 	//RAM Address Initialization
 	uint32_t ram_address = (uint32_t) & RAM_Buf;
@@ -121,6 +122,13 @@ bool image_flash_file(void){
 	}
 	HAL_FLASH_Lock();
 	f_close(&file);
+
+#if (CHECKSUM == 1)
+	//CRC quick test
+#include "crc.h"
+	//Checked value in debugging
+	volatile uint32_t calculated_CRC = CRC32_ForBytes((uint8_t*)APPLICATIONADDRESS, size_of_file);
+#endif
 	return true;
 }
 
