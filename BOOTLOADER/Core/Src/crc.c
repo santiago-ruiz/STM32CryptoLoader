@@ -14,7 +14,6 @@
 #define RCC_CRC_BIT                             ((uuint32_t)0x00001000)
 
 extern CRC_HandleTypeDef hcrc;
-static uint32_t revbit(uint32_t uData);
 
 uint32_t CRC32_ForBytes(uint8_t *pData,uint32_t uLen)
 {
@@ -57,7 +56,7 @@ uint32_t CRC32_ForBytes(uint8_t *pData,uint32_t uLen)
     return uData^0xFFFFFFFF;
 }
 
-static uint32_t revbit(uint32_t uData)
+uint32_t revbit(uint32_t uData)
 {
     uint32_t uRevData = 0,uIndex = 0;
     uRevData |= ((uData >> uIndex) & 0x01);

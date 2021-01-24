@@ -3,7 +3,9 @@
 
 #include "fatfs.h"
 #include <stdbool.h>
+#include <string.h>
 #include "tiny_aes.h"
+#include "aes.h"
 #include "build_config.h"
 
 bool image_open_binary(void);

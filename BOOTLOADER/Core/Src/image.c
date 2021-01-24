@@ -34,7 +34,7 @@ bool image_open_binary(void){
 
 	//Check if binary size file is correct
 	uint32_t size_of_file = f_size(&file);
-	if (size_of_file > FLASH_SIZE - BOOTLOADER_SIZE)
+	if (size_of_file > FLASH_SIZE - BOOTLOADER_SIZE || !size_of_file)
 		return false;
 
 	return true;
@@ -66,11 +66,22 @@ bool image_flash_file(void){
 	uint32_t buffer_size;
 
 #if (CRYPTO == 1)
+#if (TINY_AES == 1)
 	struct AES_ctx ctx;
 #if (CBC == 1) || (CTR == 1)
 	AES_init_ctx_iv(&ctx, key, iv);
 #else
 	AES_init_ctx(&ctx, key);
+#endif
+#elif (TINYCRYPT == 1)
+#include "cbc_mode.h"
+	struct tc_aes_key_sched_struct a;
+	tc_aes128_set_decrypt_key(&a, key);
+	uint8_t CRYPTO_outBuf[BUFFER_SIZE+sizeof(iv)] ={0x00};
+	uint8_t CRYPTO_inBuf[BUFFER_SIZE+sizeof(iv)] ={0x00};
+#if	(CBC == 1)
+
+#endif
 #endif
 #endif
 
@@ -95,6 +106,12 @@ bool image_flash_file(void){
 		AES_CTR_xcrypt_buffer(&ctx, RAM_Buf, buffer_size);
 #elif (ECB == 1)
 		AES_ECB_decrypt(&ctx, RAM_Buf);
+#endif
+#elif (TINYCRYPT == 1)
+#if   (CBC ==1)
+		memcpy(CRYPTO_inBuf,RAM_Buf,buffer_size);
+		tc_cbc_mode_decrypt(CRYPTO_outBuf, sizeof(CRYPTO_outBuf), CRYPTO_inBuf,sizeof(CRYPTO_inBuf),iv,&a);
+		memcpy(RAM_Buf,CRYPTO_outBuf,buffer_size);
 #endif
 #endif
 #endif
@@ -124,10 +141,10 @@ bool image_flash_file(void){
 	f_close(&file);
 
 #if (CHECKSUM == 1)
-	//CRC quick test
 #include "crc.h"
-	//Checked value in debugging
-	volatile uint32_t calculated_CRC = CRC32_ForBytes((uint8_t*)APPLICATIONADDRESS, size_of_file);
+	volatile uint32_t calculated_CRC = CRC32_ForBytes((uint8_t*)APPLICATIONADDRESS, size_of_file-4);
+	if(calculated_CRC != __REV(*(uint32_t*)(APPLICATIONADDRESS+size_of_file-4)))
+		return false;
 #endif
 	return true;
 }

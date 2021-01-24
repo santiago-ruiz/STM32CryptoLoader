@@ -58,7 +58,8 @@ void boot_fsm(void){
 
 		case FAIL:
 			//Do something to show error and jump to application
-			jump_to_app();
+			while(1);
+//			jump_to_app();
 			break;
 
 		default:
