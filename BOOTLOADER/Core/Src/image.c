@@ -73,15 +73,6 @@ bool image_flash_file(void){
 #else
 	AES_init_ctx(&ctx, key);
 #endif
-#elif (TINYCRYPT == 1)
-#include "cbc_mode.h"
-	struct tc_aes_key_sched_struct a;
-	tc_aes128_set_decrypt_key(&a, key);
-	uint8_t CRYPTO_outBuf[BUFFER_SIZE+sizeof(iv)] ={0x00};
-	uint8_t CRYPTO_inBuf[BUFFER_SIZE+sizeof(iv)] ={0x00};
-#if	(CBC == 1)
-
-#endif
 #endif
 #endif
 
@@ -106,12 +97,6 @@ bool image_flash_file(void){
 		AES_CTR_xcrypt_buffer(&ctx, RAM_Buf, buffer_size);
 #elif (ECB == 1)
 		AES_ECB_decrypt(&ctx, RAM_Buf);
-#endif
-#elif (TINYCRYPT == 1)
-#if   (CBC ==1)
-		memcpy(CRYPTO_inBuf,RAM_Buf,buffer_size);
-		tc_cbc_mode_decrypt(CRYPTO_outBuf, sizeof(CRYPTO_outBuf), CRYPTO_inBuf,sizeof(CRYPTO_inBuf),iv,&a);
-		memcpy(RAM_Buf,CRYPTO_outBuf,buffer_size);
 #endif
 #endif
 #endif

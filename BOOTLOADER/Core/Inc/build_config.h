@@ -8,7 +8,7 @@
 #define APPLICATIONADDRESS      ((uint32_t)FLASH_STARTADDRESS+BOOTLOADER_SIZE) /* User start code space */
 #define FLASH_STARTADDRESS      ((uint32_t)0x08000000) /* Flash Start Address */
 #define FLASH_ENDADDRESS		((uint32_t)FLASH_STARTADDRESS +FLASH_SIZE)
-#define BUFFER_SIZE   			((uint16_t)1*1024) /* Binary reading buffer*/
+#define BUFFER_SIZE   			((uint16_t)1*8192) /* Binary reading buffer*/
 
 #define CHECKSUM				0
 #define CRYPTO					1
@@ -22,8 +22,8 @@
 #define ECB						0
 #define CTR						0
 
-#define TINY_AES				0
-#define TINYCRYPT				1
+#define TINY_AES				1
+#define TINYCRYPT				0
 
 //OpenSSL commands
 //AES128
