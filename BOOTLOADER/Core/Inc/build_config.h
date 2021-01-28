@@ -16,7 +16,7 @@
 #define HASH					1
 
 //Decryption Config
-#define CRYPTO					1
+#define CRYPTO					0
 
 #if (CRYPTO == 1)
 

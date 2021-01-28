@@ -136,8 +136,8 @@ bool command_verify_flash(void){
 #if (CHECKSUM == 1)
 #include "crc.h"
 	volatile uint32_t calculated_CRC = CRC32_ForBytes((uint8_t*)APPLICATIONADDRESS, size_of_file-4);
-	if(calculated_CRC != __REV(*(uint32_t*)(APPLICATIONADDRESS+size_of_file-4)))
-		return false;
+//	if(calculated_CRC != __REV(*(uint32_t*)(APPLICATIONADDRESS+size_of_file-4)))
+//		return false;
 #endif
 
 #if	(HASH == 1)

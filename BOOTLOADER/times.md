@@ -2,32 +2,52 @@
 T0 represents -O0 and T1 represents -O1 optimizations.
 Anything above -O1 won´t work correctly
 ## No crypto
-FLASH = 20.3kB
-RAM = 11.9kB
+FLASH = 20.5kB
+RAM = 12kB
 
 5kB BIN --->T0 = 164ms / T1 = 132ms
 20kB BIN--->T0 = 540ms / T1 = 434ms
 
-## Tiny-AES
+## Crypto
+### AES (Tiny-AES)
 
-FLASH = 23.7kB
-RAM = 12kB
-Times: -O0/-O1
+Added FLASH = 3.4kB
+Added RAM = 0.1kB
+Added Times: -O0/-O1
 For 5kB BIN File:
 
 | |CBC  | CTR | ECB|
 | --|--|--|--|
-| AES128| 1431ms/216ms| 334ms/170ms|
-| AES192| 1708ms/232ms | 369ms/177ms |
-| AES256| 1988ms/252ms| 401ms/187ms |
+| AES128| 1267ms/84ms| 170ms/38ms|
+| AES192| 1544ms/100ms | 205ms/45ms |
+| AES256| 1824ms/120ms| 401ms/55ms |
 
 For 20kB BIN File:
 
 | |CBC  | CTR | ECB|
 | --|--|--|--|
-| AES128| 7135ms/871ms| 1431ms/632ms|
-| AES192| 8581ms/956ms| 1608ms/668ms|
-| AES256| 10031ms/1059ms| 1781ms/720ms|
+| AES128| 6595ms/437ms| 891ms/198ms|
+| AES192| 8041ms/522ms| 1068ms/234ms|
+| AES256| 9491ms/625ms| 1241ms/286ms|
 
 Note: changing `sbox[256]` and `rsbox[256]`from `static const` to `static` (from ROM to RAM) produce less than 1% improvement.
+
+## Verification
+### CRC32 (Hardware implemented)
+Added FLASH =  0.4kB
+Added RAM = 0kB
+
+For 5kB BIN File:
+Added Time: T0=19ms / T1=8ms
+For 20kB BIN File:
+Added Time: T0=199ms / T1=35ms
+
+### SHA256
+-Added FLASH =  2kB
+-Added RAM = 0.1kB
+
+-For 5kB BIN File:
+-Added Time: T0=36ms / T1=1ms
+-For 20kB BIN File:
+-Added Time: T0=156ms / T1=12ms
 
