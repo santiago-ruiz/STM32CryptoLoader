@@ -39,15 +39,17 @@ Added RAM = 0kB
 
 For 5kB BIN File:
 Added Time: T0=19ms / T1=8ms
+
 For 20kB BIN File:
 Added Time: T0=199ms / T1=35ms
 
 ### SHA256
--Added FLASH =  2kB
--Added RAM = 0.1kB
+Added FLASH =  2kB
+Added RAM = 0.1kB
 
--For 5kB BIN File:
--Added Time: T0=36ms / T1=1ms
--For 20kB BIN File:
--Added Time: T0=156ms / T1=12ms
+For 5kB BIN File:
+Added Time: T0=36ms / T1=1ms
+
+For 20kB BIN File:
+Added Time: T0=156ms / T1=12ms
 
