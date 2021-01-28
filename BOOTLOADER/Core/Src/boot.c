@@ -5,12 +5,12 @@ typedef enum{
 	READING,
 	ERASING,
 	FLASHING,
+	VERIFYING,
 	JUMPING,
 	FAIL
 }boot_state;
 
 static bool boot_check_condition(void);
-static void jump_to_app(void);
 
 static boot_state state = INIT;
 extern volatile uint32_t ms_counter;
@@ -27,7 +27,7 @@ void boot_fsm(void){
 
 		case READING:
 			//Check if we can find the binary image
-			if(image_open_binary())
+			if(command_open_binary())
 				state = ERASING;
 			else
 				state = FAIL;
@@ -35,7 +35,7 @@ void boot_fsm(void){
 
 		case ERASING:
 			//Erase application FLASH memory
-			if(image_erase_flash()){
+			if(command_erase_flash()){
 				state = FLASHING;
 			}
 			else
@@ -43,18 +43,27 @@ void boot_fsm(void){
 			break;
 
 		case FLASHING:
-			if(image_flash_file())
+			if(command_flash_file())
+				state = VERIFYING;
+			else
+				state = FAIL;
+			break;
+
+		case VERIFYING:
+			if(command_verify_flash())
 				state = JUMPING;
 			else
 				state = FAIL;
 			break;
 
+
 		case JUMPING:
 			//Timer (checked in debug)
 			ms_counter;
 			//Jump to the application
-			jump_to_app();
+			command_jump_to_application();
 			break;
+
 
 		case FAIL:
 			//Do something to show error and jump to application
@@ -73,19 +82,4 @@ static bool boot_check_condition(void){
 	return true;
 }
 
-pFunction Jump_To_Application;
-uint32_t JumpAddress;
 
-static void jump_to_app(void){
-
-	if (((*(__IO uint32_t*)APPLICATIONADDRESS) & 0x2FFE0000 ) == 0x20000000)
-	{
-	  // Jump to user application
-	  JumpAddress = *(__IO uint32_t*) (APPLICATIONADDRESS + 4);
-	  Jump_To_Application = (pFunction) JumpAddress;
-	  //Initialize user application's Stack Pointer
-	  __set_MSP(*(__IO uint32_t*) APPLICATIONADDRESS);
-	  Jump_To_Application();
-	}
-
-}

@@ -1,4 +1,4 @@
-#include "image.h"
+#include <commands.h>
 extern CRC_HandleTypeDef hcrc;
 
 //Only for testing
@@ -11,6 +11,7 @@ uint8_t key[] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x
 uint8_t key[] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
 				  0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f};
 #endif
+//iv must be changed everytime
 uint8_t iv[]  = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
 
 
@@ -20,7 +21,7 @@ FRESULT fres; //Result after operations
 //Binary file reading buffer
 uint8_t RAM_Buf[BUFFER_SIZE] ={0x00};
 
-bool image_open_binary(void){
+bool command_open_binary(void){
 	//Mount
 	fres = f_mount(&FatFs, "", 1);
 	if (fres != FR_OK) {
@@ -40,7 +41,7 @@ bool image_open_binary(void){
 	return true;
 }
 
-bool image_erase_flash(void){
+bool command_erase_flash(void){
 	HAL_FLASH_Unlock();
 	uint32_t size_of_file = f_size(&file);
 	uint32_t erase_address = 0x00;
@@ -53,7 +54,7 @@ bool image_erase_flash(void){
 	return true;
 }
 
-bool image_flash_file(void){
+bool command_flash_file(void){
 	uint32_t read = 0;
 	uint32_t size_of_file = f_size(&file)-16;
 	uint8_t error_code;
@@ -125,6 +126,13 @@ bool image_flash_file(void){
 	HAL_FLASH_Lock();
 	f_close(&file);
 
+	return true;
+}
+
+bool command_verify_flash(void){
+
+	uint32_t size_of_file = f_size(&file)-16;
+
 #if (CHECKSUM == 1)
 #include "crc.h"
 	volatile uint32_t calculated_CRC = CRC32_ForBytes((uint8_t*)APPLICATIONADDRESS, size_of_file-4);
@@ -139,14 +147,28 @@ bool image_flash_file(void){
 	tc_sha256_init(&s);
 	tc_sha256_update(&s, (uint8_t*)APPLICATIONADDRESS, size_of_file);
 	tc_sha256_final(digest, &s);
+	//Verify digest against previously generated digest
 #endif
 
 	return true;
 }
 
+pFunction Jump_To_Application;
+uint32_t JumpAddress;
+
+void command_jump_to_application(void){
 
 
-
+	if (((*(__IO uint32_t*)APPLICATIONADDRESS) & 0x2FFE0000 ) == 0x20000000)
+	{
+	  // Jump to user application
+	  JumpAddress = *(__IO uint32_t*) (APPLICATIONADDRESS + 4);
+	  Jump_To_Application = (pFunction) JumpAddress;
+	  //Initialize user application's Stack Pointer
+	  __set_MSP(*(__IO uint32_t*) APPLICATIONADDRESS);
+	  Jump_To_Application();
+	}
+}
 
 
 

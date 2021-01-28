@@ -1,6 +1,7 @@
 #ifndef BUILD_CONFIG__H
 #define BUILD_CONFIG__H
 
+//Flash Config
 #define BINARY_FILE_NAME 		"firmware.bin"
 #define PAGE_SIZE               ((uint16_t)0x400)    /* 1 Kbytes */
 #define FLASH_SIZE              ((uint32_t)0x10000)  /* 64 KBytes */
@@ -10,8 +11,11 @@
 #define FLASH_ENDADDRESS		((uint32_t)FLASH_STARTADDRESS +FLASH_SIZE)
 #define BUFFER_SIZE   			((uint16_t)1*8192) /* Binary reading buffer*/
 
+//Verification Config
 #define CHECKSUM				0
 #define HASH					1
+
+//Decryption Config
 #define CRYPTO					1
 
 #if (CRYPTO == 1)
