@@ -6,14 +6,18 @@ FLASH = 20.5kB
 RAM = 12kB
 
 5kB BIN --->T0 = 164ms / T1 = 132ms
+
 20kB BIN--->T0 = 540ms / T1 = 434ms
 
 ## Crypto
 ### AES (Tiny-AES)
 
 Added FLASH = 3.4kB
+
 Added RAM = 0.1kB
+
 Added Times: -O0/-O1
+
 For 5kB BIN File:
 
 | |CBC  | CTR | ECB|
@@ -35,21 +39,27 @@ Note: changing `sbox[256]` and `rsbox[256]`from `static const` to `static` (from
 ## Verification
 ### CRC32 (Hardware implemented)
 Added FLASH =  0.4kB
+
 Added RAM = 0kB
 
 For 5kB BIN File:
+
 Added Time: T0=19ms / T1=8ms
 
 For 20kB BIN File:
+
 Added Time: T0=199ms / T1=35ms
 
 ### SHA256
 Added FLASH =  2kB
+
 Added RAM = 0.1kB
 
 For 5kB BIN File:
+
 Added Time: T0=36ms / T1=1ms
 
 For 20kB BIN File:
+
 Added Time: T0=156ms / T1=12ms
 
