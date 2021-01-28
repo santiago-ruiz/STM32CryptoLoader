@@ -131,6 +131,16 @@ bool image_flash_file(void){
 	if(calculated_CRC != __REV(*(uint32_t*)(APPLICATIONADDRESS+size_of_file-4)))
 		return false;
 #endif
+
+#if	(HASH == 1)
+#include "sha256.h"
+	uint8_t digest[32];
+	struct tc_sha256_state_struct s;
+	tc_sha256_init(&s);
+	tc_sha256_update(&s, (uint8_t*)APPLICATIONADDRESS, size_of_file);
+	tc_sha256_final(digest, &s);
+#endif
+
 	return true;
 }
 

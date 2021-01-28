@@ -11,6 +11,7 @@
 #define BUFFER_SIZE   			((uint16_t)1*8192) /* Binary reading buffer*/
 
 #define CHECKSUM				0
+#define HASH					1
 #define CRYPTO					1
 
 #if (CRYPTO == 1)
